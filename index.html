@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Stay cool banana bro</title>
+        <title>Stay cool, Banana Bro</title>
         <meta charset="utf-8">
         <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Stay Cool BB">
         <link rel="apple-touch-icon" href="img/banana.png">
-        <link rel="icon" type="image/png" href="img/tomato.png">
+        <link rel="icon" type="image/png" href="img/clouds.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="scripts/anime.min.js"></script>
         <style>
-            html {
-                height: 100%;
+            @font-face {
+                font-family: "LilitaOne";
+                src:
+                    local("LilitaOne"),
+                    url("/fonts/LilitaOne-Regular.ttf") 
             }
             body {
                 background: linear-gradient(103deg, 
@@ -30,21 +33,16 @@
                                     rgba(148,233,171,1) 80%, 
                                     rgba(148,187,233,1) 88%, 
                                     rgba(238,174,202,1) 100%);                                    ;
-                background-size: 200% 200%;
+                background-size: 300% 300%;
 
                 -webkit-animation: backgroundStripes 120s ease infinite;
                 -moz-animation: backgroundStripes 120s ease infinite;
                 animation: backgroundStripes 120s ease infinite;
             }
-            button {
-                background: none;
-                border: none;
-            }
-
             @-webkit-keyframes backgroundStripes {
                 0%{background-position:0% 79%}
                 50%{background-position:100% 22%}
-                100%{background-position:0% 79%}
+                100%{background-position:0% 79%}    
             }
             @-moz-keyframes backgroundStripes {
                 0%{background-position:0% 79%}
@@ -56,7 +54,12 @@
                 50%{background-position:100% 22%}
                 100%{background-position:0% 79%}
             }
-
+            h1, h2, h3, h4, h5, h6 {
+                font-family: LilitaOne;
+            }
+            .display-1, .display-2, .display-3, .display-4 {
+                font-family: LilitaOne;
+            }
             .hang {
                 opacity: 0.1;
                 z-index: -9999;
@@ -64,84 +67,123 @@
                 rotate: 309deg;
                 overflow: hidden;
             }
-            .banner {
-                z-index: 100000;
+            .header, .footer {
+                background-color: lime;  
+                border-radius: 10px; 
+                border: 8px solid aqua;
             }
-
-            .grid-image {
-                width: 13vw;
+            .character-card {
+                background-color: rgb(20,80,180);  
+                border-radius: 10px; 
+                border: 8px solid rgb(0,200,200);
             }
         </style>
     </head>
-    <body class="overflow-hidden w-100 h-100">
-        <div class="container-fluid position-absolute top-50 start-50 translate-middle text-center">
-            <div class="hang">🤙</div>
-        </div>
-        <div class="container-fluid position-absolute top-50 start-50 translate-middle text-center">
-            <div id="cool-club">
-                <button type="button" onclick="createGrid(event)"><img width="70px" alt="cucumber" src="img/cucumber.png"></button>
-                <button type="button" onclick="createGrid(event)"><img width="100px" alt="tomato" src="img/tomato.png"></button>
-                <button type="button" onclick="createGrid(event)"><img width="80px" alt="banana" src="img/banana.png"></button>
-                <button type="button" onclick="createGrid(event)"><img width="130px" alt="tofu" src="img/tofu.png"></button>
-                <button type="button" onclick="createGrid(event)"><img width="70px" alt="egg" src="img/egg.png"></button>
+    <body class="container-fluid text-center mt-4 mb-4">
+        <header class="header">
+            <div class="display-1">
+                <img alt="banana" class="m-4" style="width:90px;transform: scaleX(-1);" src="img/banana-jump-v2.png">
+                <span style="text-shadow: 3px 3px #FED300;"> Stay Cool Club</span>
+                <img class="m-4" style="width:90px;" alt="banana" src="img/banana-jump-v2.png">
+            </div>                
+        </header>
+        <main>
+            <div class="position-absolute top-50 start-50 translate-middle text-center" style="z-index: -1000;">
+                <div class="hang">🤙</div>
             </div>
-            <div id="cool-grid"></div>
-        </div>
-        <div class="banner container position-absolute bottom-0 start-0 p-2 m-2 fw-bold text-light"><span><a href="/">Stay Cool Club</a></span></div>
-
-        <script>
-            window.scrollTo(0,1);
-
-            let images = [
-                'tomato','tofu','egg','banana','cucumber'
-            ];
-            let imageCount = 4;
-            let grid = document.getElementById('cool-grid');
-            let club = document.getElementById('cool-club');
-
-            let d = document.getElementsByTagName('html')[0];
-            d.addEventListener('click', e => {});
-
-            function createGrid(e) {
-                const gridSize = 12;
-
-                club.style.display = 'none';
-                grid.replaceChildren();
-                
-                for (let index = 0; index < gridSize; index++) {
-                    let row = document.createElement('div');
-                    row.classList.add('row', 'justify-content-md-center');
-                    let col = document.createElement('div');
-                    col.classList.add('col');
-                    
-                    for (let j = 0; j < gridSize/2; j++) {
-                        let img = document.createElement('img');
-                        img.classList.add('grid-image');
-                        img.style.opacity = 0.0;
-                        img.src = `img/${e.target.alt}.png`;
-                        img.src = `img/${images[anime.random(0,imageCount)]}.png`;
-                        col.appendChild(img);
-                    }
-                    row.appendChild(col);
-                    grid.appendChild(row);
-                }
-
-                let el = document.getElementsByClassName('grid-image');
-                anime({
-                    targets: el,
-                    opacity: [0, 1],
-                    scale: [
-                        {value: 2, easing: 'easeOutSine', duration: 200},
-                        {value: 1, easing: 'easeInOutQuad', duration: 200}
-                    ],  
-                    rotate: [
-                        {value: () => anime.random(-10, 10)},
-                        {value: () => anime.random(-10, 10)}
-                    ],   
-                    delay: anime.stagger(100, {from: 'center'}),
-                });
-
-            }
-        </script>
+            <section class="m-4">
+                <div class="display-2 mb-4">The Games</div>
+                <a class="btn p-3 m-2 rounded bg-warning" href="/games/chapter-1/">
+                    <h3>Stay Cool, Banana Bro</h3>
+                    <h3>Chapter 1: Hop To It</h3>
+                </a>
+                <a class="btn p-3 m-2 rounded bg-secondary">
+                    <h3>Stay Cool, Banana Bro</h3>
+                    <h3>Chapter 2: [TBD, but cool]</h3>
+                </a>
+            </section>
+            <section class="m-4">
+                <div class="display-2 mb-4">The Players</div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card character-card text-white text-start m-1 p-2" style="height: 22rem;">
+                            <div class="row g-0">
+                                <div class="card-body">
+                                    <div class="position-absolute bottom-0 end-0 p-2"><img src="/img/banana-run.png" style="width: 100px;"></div>
+                                    <div class="">
+                                        <h5 class="card-title">Banana Bro</h5>
+                                        <h6 class="card-subtitle mb-3">Fruit of leisure</h6>
+                                        <p class="card-text">
+                                            Loves:<br/>Hammocks, mirrored sunglasses, roller skates
+                                        </p>
+                                        <p class="card-text">
+                                            Dislikes:<br/>Ethylene, b@n@n@ bread<br/>
+                                        </p>
+                                        <p class="card-text">
+                                            Motto:<br/>“Right on.”
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card character-card text-white text-start m-1 p-2" style="height: 22rem;">
+                            <div class="row g-0">
+                                <div class="card-body">
+                                    <div class="position-absolute top-0 end-0 p-3"><img src="/img/bowl.png" style="width: 90px;"></div>
+                                    <div class="">
+                                        <h5 class="card-title">Dough Bowl</h5>
+                                        <h6 class="card-subtitle mb-3">Baker’s assistant</h6>
+                                        <p class="card-text">
+                                            Loves:<br/>Being left alone on top of the refrigerator
+                                        </p>
+                                        <p class="card-text">
+                                            Dislikes:<br/>Feeling sticky
+                                        </p>
+                                        <p class="card-text">
+                                            Motto:<br/>“I don’t have to proof nothing.”
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="col">
+                        <div class="card character-card text-white text-start m-1 p-2" style="height: 22rem;">
+                            <div class="row g-0">
+                                <div class="card-body">
+                                    <div class="position-absolute bottom-50 end-0 p-2"><img src="/img/tofu-squat.png" style="width: 150px;"></div>
+                                    <div class="">                                    
+                                        <h5 class="card-title">Pressed Tofu</h5>
+                                        <h6 class="card-subtitle mb-3">Bodybuilder</h6>
+                                        <p class="card-text">
+                                            Loves:<br/>Leg day, jorts
+                                        </p>
+                                        <p class="card-text">
+                                            Dislikes:<br/>Soft and silken wimps
+                                        </p>
+                                        <p class="card-text">
+                                            Motto:<br/>“The action is the juice.”
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>                      
+                        </div>
+                    </div>
+                </div>              
+            </section>       
+            <section class="m-4">
+                <div class="display-2 mb-4">The Merch</div>
+                <div>Stuff</div>
+            </section>                    
+            <section class="m-4">
+                <div class="display-2 mb-4">The Cred</div>
+                <div>Made by humans</div>
+            </section>         
+        </main>
+        <footer class="footer p-2">
+            Hang tight. Stay loose.
+        </footer>
     </body>
 </html>
