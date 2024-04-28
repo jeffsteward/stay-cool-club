@@ -1,7 +1,8 @@
 kaboom({
     width: 800,
     height: 400,
-    root: document.getElementById("gameboard")
+    root: document.getElementById("gameboard"),
+    background: [100, 100, 255]
 });
 
 const settings = {
@@ -344,7 +345,6 @@ scene("game", () => {
         wait(1, () => go("game-over", score));
     }
 
-    setBackground(100, 100, 255);  
     setGravity(3200);
     spawnClouds();
     showBananner(center(), choose(messages.hello), 40, 0.5, 1.5, 0, color(255,255,255));
@@ -618,8 +618,6 @@ scene("main-menu", () => {
         anchor("right")
     ])    
 
-    setBackground(100, 100, 255);  
-    
     onKeyPress("space", () => go("chapter-intro"));
 });
 
@@ -689,8 +687,6 @@ scene("instructions", () => {
 });
 
 scene("characters", () => {
-    setBackground(100, 100, 255);  
-
     add([
         color(250,100,200),
         text("Our Hero",{ 
