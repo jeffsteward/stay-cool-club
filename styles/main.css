@@ -1,0 +1,68 @@
+@font-face {
+    font-family: "LilitaOne";
+    src:
+        local("LilitaOne"),
+        url("/fonts/LilitaOne-Regular.ttf") 
+}
+body {
+    background: linear-gradient(103deg, 
+                        rgba(238,174,202,1) 0%, 
+                        rgba(148,187,233,1) 8%, 
+                        rgba(148,233,171,1) 16%, 
+                        rgba(233,148,199,1) 24%, 
+                        rgba(152,148,233,1) 32%, 
+                        rgba(232,233,148,1) 40%, 
+                        rgb(233, 152, 148) 48%,                                    
+                        rgba(232,233,148,1) 56%,                                     
+                        rgba(152,148,233,1) 64%, 
+                        rgba(233,148,199,1) 72%, 
+                        rgba(148,233,171,1) 80%, 
+                        rgba(148,187,233,1) 88%, 
+                        rgba(238,174,202,1) 100%);                                    ;
+    background-size: 300% 300%;
+
+    -webkit-animation: backgroundStripes 120s ease infinite;
+    -moz-animation: backgroundStripes 120s ease infinite;
+    animation: backgroundStripes 120s ease infinite;
+}
+@-webkit-keyframes backgroundStripes {
+    0%{background-position:0% 79%}
+    50%{background-position:100% 22%}
+    100%{background-position:0% 79%}    
+}
+@-moz-keyframes backgroundStripes {
+    0%{background-position:0% 79%}
+    50%{background-position:100% 22%}
+    100%{background-position:0% 79%}
+}
+@keyframes backgroundStripes {
+    0%{background-position:0% 79%}
+    50%{background-position:100% 22%}
+    100%{background-position:0% 79%}
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: LilitaOne;
+}
+.paused {
+    animation-play-state: paused;
+}
+.display-1, .display-2, .display-3, .display-4 {
+    font-family: LilitaOne;
+}
+.hang {
+    opacity: 0.1;
+    z-index: -9999;
+    font-size: 30vw;
+    rotate: 309deg;
+    overflow: hidden;
+}
+.jumbotron, .foototron {
+    background-color: lime;  
+    border-radius: 10px; 
+    border: 8px solid aqua;
+}
+.character-card {
+    background-color: rgb(20,80,180);  
+    border-radius: 10px; 
+    border: 8px solid rgb(0,200,200);
+}
