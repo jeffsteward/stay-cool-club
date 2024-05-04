@@ -365,31 +365,42 @@ scene("game", () => {
         shake();
     });
 
-    onKeyPress("space", () => {
+    function jump() {
         if (banana.isGrounded()) {
             banana.play("jump");
             banana.jump(1000);
          }
-    });
-    
-    onKeyDown("right", () => {
+
+    }
+
+    function goLeft() {
+        if (banana.pos.x > 0) {
+            banana.flipX = false;
+            banana.move(-300,0);
+        }
+        if (banana.isGrounded() && banana.curAnim() !== "run") {
+            banana.play("run")
+        }  
+    }
+
+    function goRight() {
         if (banana.pos.x < width() - banana.width*settings.PLAYER_SCALING) {
             banana.flipX = true;
             banana.move(300,0);
         }
         if (banana.isGrounded() && banana.curAnim() !== "run") {
 		    banana.play("run")
-	    }        
-    }); 
+	    }                
+    }
 
-    onKeyDown("left", () => {
-        if (banana.pos.x > 0) {
-            banana.flipX = false;
-            banana.move(-300,0);
-        }
-        if (banana.isGrounded() && banana.curAnim() !== "run") {
-		    banana.play("run")
-	    }  
+    onKeyPress("space", jump);
+    onKeyDown("right", goRight); 
+    onKeyDown("left", goLeft);
+    onGamepadButtonPress("south", jump);
+    onGamepadStick("left", (v) => {
+        if (v.x.toFixed(1) > 0.0) goRight();
+        if (v.x.toFixed(1) < 0.0) goLeft();
+        if (v.x.toFixed(1) == 0.0 && banana.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) banana.play("idle");
     });
     
     ["left", "right"].forEach((key) => {
@@ -540,6 +551,8 @@ scene("game-over", (score) => {
     });
 
     onKeyPress("space", () => go("game"));
+    onGamepadButtonPress("south", () => go("game"));
+    onGamepadButtonPress("start", () => go("main-menu"));
 });
 
 scene("main-menu", () => {
@@ -619,6 +632,7 @@ scene("main-menu", () => {
     ])    
 
     onKeyPress("space", () => go("chapter-intro"));
+    onGamepadButtonPress("south", () => go("chapter-intro"));
 });
 
 scene("instructions", () => {
@@ -684,6 +698,8 @@ scene("instructions", () => {
     ])    
     
     onKeyPress("space", () => go("game"));
+    onGamepadButtonPress("south", () => go("game"));
+    onGamepadButtonPress("start", () => go("main-menu"));
 });
 
 scene("characters", () => {
