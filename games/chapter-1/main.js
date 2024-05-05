@@ -62,6 +62,8 @@ const messages = {
     tofuDestroy: [
         "Soy long for now!",
         "Do you even lift?",
+        "Soya later!",
+        "Why so square?",
     ],
     bowlDestory: [
         "Knead this!",
