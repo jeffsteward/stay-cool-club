@@ -1,5 +1,6 @@
 export const messages = {
-    mainmenu: `Can you stay cool?`,
+    chapter: "Chapter 1",
+    title: "Hop to It",
     hello: [
         "Hello, Banana Bro",
         "Olá, Banana Bro", 

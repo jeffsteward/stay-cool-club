@@ -1,8 +1,6 @@
+import { messages } from "../content/messages.js";
+
 export function Intro() {
-    const messages = [
-        "Chapter 1",
-        "Hop to It"
-    ];
     add([
         rect(width()+20, 140),
         color(20,80,180),
@@ -13,7 +11,7 @@ export function Intro() {
 
     let bananner = add([
         color(250,100,200),
-        text(messages[0], { 
+        text(messages.chapter, { 
             size: 55,
             font: 'Lilita One'
          }),
@@ -22,7 +20,7 @@ export function Intro() {
     ]);
 
     wait(2, () => {
-        bananner.text = messages[1];
+        bananner.text = messages.title;
         wait(2, () => {
             go("instructions");
         }) 
