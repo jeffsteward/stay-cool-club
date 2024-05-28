@@ -33,12 +33,14 @@ loadSprite("tofu", "/img/tofu-v2-sprites.png", {
     }
 });
 loadSprite("banana", "/img/banana-v3-sprites.png", {
-    sliceX: 4,
+    sliceX: 7,
     sliceY: 1,
     anims: {
         idle: 0,
         run: { from: 1, to: 2, speed: 12, loop: true },
-        jump: 3
+        jump: 3,
+        zen: 4,
+        throw: { from: 5, to: 6, speed: 12 }
     }
 });
 

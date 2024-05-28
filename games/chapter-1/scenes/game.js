@@ -8,6 +8,7 @@ export function Game() {
     let nextStorm = 2000;
     let gameRunning = false;
     let actionPaused = false;
+    let zenMode = false;
     let maxBowlHeight= 0;
     let difficulty = difficulties[0];
     let score = {
@@ -230,6 +231,39 @@ export function Game() {
         wait(1, () => go("game-over", score));
     }
 
+    function generateAura(p) {
+        add([
+            circle(1),
+            pos(p.x+30,height() - 90),
+            anchor("center"),
+            color([20,80,180]),
+            fadeIn(2.0),
+            opacity(0.15),
+            lifespan(3.0, {fade: 0.5}),            
+            z(-90),
+            "aura",
+            "aura-inner"
+        ])
+        onUpdate("aura-inner", (aura) => {
+            if (aura.radius < 75) aura.radius +=0.5;
+        })
+        add([
+            circle(1),
+            pos(p.x+30,height() - 90),
+            anchor("center"),
+            color(characters.banana.color),
+            fadeIn(2.5),
+            opacity(0.15),
+            lifespan(3.0, {fade: 0.5}),            
+            z(-100),
+            "aura",
+            "aura-outer"
+        ])
+        onUpdate("aura-outer", (aura) => {
+            if (aura.radius < 78) aura.radius +=0.25;
+        })        
+    }
+
     setGravity(3200);
     spawnClouds();
     showBananner(center(), choose(messages.hello), 40, 0.5, 1.5, 0, color(255,255,255));
@@ -255,10 +289,25 @@ export function Game() {
             banana.play("jump");
             banana.jump(1000);
          }
+    }
 
+    function goZen() {
+        if (banana.isGrounded() ) {
+            banana.play("zen");
+            if (!zenMode) {
+                zenMode = true;
+                generateAura(banana.pos);
+            }
+        }
+    }
+
+    function stopZen() {
+        zenMode = false;
+        destroyAll("aura");
     }
 
     function goLeft() {
+        if (zenMode) return;
         if (banana.pos.x > 0) {
             banana.flipX = false;
             banana.move(-300,0);
@@ -267,8 +316,9 @@ export function Game() {
             banana.play("run")
         }  
     }
-
+    
     function goRight() {
+        if (zenMode) return;
         if (banana.pos.x < width() - banana.width*characters.banana.scale) {
             banana.flipX = true;
             banana.move(300,0);
@@ -281,19 +331,24 @@ export function Game() {
     onKeyPress("space", jump);
     onKeyDown("right", goRight); 
     onKeyDown("left", goLeft);
+    onKeyDown("down", goZen)
+
     onGamepadButtonPress("south", jump);
     onGamepadStick("left", (v) => {
         if (v.x.toFixed(1) > 0.0) goRight();
         if (v.x.toFixed(1) < 0.0) goLeft();
-        if (v.x.toFixed(1) == 0.0 && banana.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) banana.play("idle");
+        if (v.x.toFixed(1) == 0.0 && banana.isGrounded() && !isKeyDown("left") && !isKeyDown("right") && !isKeyDown("down")) banana.play("idle");
+        if (v.y.toFixed(1) > 0.0) goZen();
+        if (v.y.toFixed(1) == 0.0) stopZen();
     });
     
-    ["left", "right"].forEach((key) => {
+    ["left", "right", "down"].forEach((key) => {
         onKeyRelease(key, () => {
         // Only reset to "idle" if player is not holding any of these keys
-            if (banana.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
-                banana.play("idle")
+            if (banana.isGrounded() && !isKeyDown("left") && !isKeyDown("right") && !isKeyDown("down")) {
+                banana.play("idle");
             }
+            if (key = "down") stopZen();
 	    })
     })
 
