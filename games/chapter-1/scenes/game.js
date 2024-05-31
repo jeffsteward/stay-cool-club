@@ -8,7 +8,6 @@ export function Game() {
     let nextStorm = 2000;
     let gameRunning = false;
     let actionPaused = false;
-    let zenMode = false;
     let maxBowlHeight= 0;
     let difficulty = difficulties[0];
     let score = {
@@ -90,7 +89,10 @@ export function Game() {
         rotate(0),
         color(...characters.banana.color),
         area(),
-        body({isStatic: true})
+        body({isStatic: true}),
+        {
+            isZen: false
+        }
     ]);
 
     maxBowlHeight = banana.height * characters.banana.scale;
@@ -233,35 +235,20 @@ export function Game() {
 
     function generateAura(p) {
         add([
-            circle(1),
-            pos(p.x+30,height() - 90),
-            anchor("center"),
-            color([20,80,180]),
-            fadeIn(2.0),
-            opacity(0.15),
-            lifespan(3.0, {fade: 0.5}),            
-            z(-90),
-            "aura",
-            "aura-inner"
-        ])
-        onUpdate("aura-inner", (aura) => {
-            if (aura.radius < 75) aura.radius +=0.5;
-        })
-        add([
-            circle(1),
-            pos(p.x+30,height() - 90),
-            anchor("center"),
-            color(characters.banana.color),
-            fadeIn(2.5),
-            opacity(0.15),
-            lifespan(3.0, {fade: 0.5}),            
+            sprite('aura'),
+            pos(p.x+30,height() - 40),
+            anchor('bot'),
+            rotate(),
+            scale(0.0),
+            fadeIn(1.0),
+            opacity(1.0),
             z(-100),
-            "aura",
-            "aura-outer"
-        ])
-        onUpdate("aura-outer", (aura) => {
-            if (aura.radius < 78) aura.radius +=0.25;
-        })        
+            "aura"
+        ]);
+        onUpdate("aura", (aura) => {
+            aura.scale = aura.scale.lerp(vec2(1.0), dt() * 1.35)
+            aura.angle = wave(-3, 3, time()*2.5);
+        });
     }
 
     setGravity(3200);
@@ -285,29 +272,31 @@ export function Game() {
     });
 
     function jump() {
-        if (banana.isGrounded()) {
-            banana.play("jump");
-            banana.jump(1000);
-         }
+        if (!banana.isZen) {
+            if (banana.isGrounded()) {
+                banana.play("jump");
+                banana.jump(1000);
+            }
+        }
     }
 
     function goZen() {
         if (banana.isGrounded() ) {
             banana.play("zen");
-            if (!zenMode) {
-                zenMode = true;
+            if (!banana.isZen) {
+                banana.isZen = true;
                 generateAura(banana.pos);
             }
         }
     }
 
     function stopZen() {
-        zenMode = false;
+        banana.isZen = false;
         destroyAll("aura");
     }
 
     function goLeft() {
-        if (zenMode) return;
+        if (banana.isZen) return;
         if (banana.pos.x > 0) {
             banana.flipX = false;
             banana.move(-300,0);
@@ -318,7 +307,7 @@ export function Game() {
     }
     
     function goRight() {
-        if (zenMode) return;
+        if (banana.isZen) return;
         if (banana.pos.x < width() - banana.width*characters.banana.scale) {
             banana.flipX = true;
             banana.move(300,0);

@@ -43,6 +43,8 @@ loadSprite("banana", "/img/banana-v3-sprites.png", {
         throw: { from: 5, to: 6, speed: 12 }
     }
 });
+loadSprite("aura", "/img/aura-2.png");
+
 
 scene("main-menu", MainMenu);
 scene("chapter-intro", Intro);
