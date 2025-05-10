@@ -158,8 +158,9 @@ export function Game() {
         actionPaused = true;
 
         for (let i=0; i<10; i++) {
+            let c = randi(100);
             add([
-                color(randi(100)),
+                color(c+randi(10),c,c),
                 sprite("cloud"),
                 pos(rand(10,width()+100), rand(0, 70)),
                 anchor("center"),
@@ -173,11 +174,12 @@ export function Game() {
 
         wait(2, () => {
             showBananner(new Vec2(center().x, 3), "¡¡¡Tofu Storm!!!", 60, 0.5, 4.0, -30, rgb(255,250,223));
-            showBananner(new Vec2(center().x, 0), "¡¡¡Tofu Storm!!!", 60, 0.5, 4.0, -30, color(60));
+            showBananner(new Vec2(center().x, 0), "¡¡¡Tofu Storm!!!", 60, 0.5, 4.0, -30, color(60,0,0));
     
             for (let i=0; i<20; i++) {
+                let c = randi(100);
                 add([
-                    color(randi(100)),
+                    color(c+randi(10),c,c),
                     sprite("cloud"),
                     pos(rand(10,width()+100), rand(0, 70)),
                     anchor("center"),
@@ -225,7 +227,7 @@ export function Game() {
         
         banana.anchor = "center";
         banana.play("jump");
-        banana.scale = 0.75;
+        banana.scaleTo(0.75);
         banana.onUpdate(() => {
             banana.angle += 500 * dt();
         });

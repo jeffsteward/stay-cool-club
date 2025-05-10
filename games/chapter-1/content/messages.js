@@ -38,7 +38,7 @@ export const messages = {
         "Banana Bread R.I.P."
     ],
     controls: [
-        '[highlight]◄[/highlight] and [highlight]►[/highlight] to move',
+        '[highlight]<[/highlight] and [highlight]>[/highlight] to move',
         '[highlight]Space bar[/highlight] to jump'
     ], 
     instructions: [

@@ -1,10 +1,11 @@
+import kaplay from "https://unpkg.com/kaplay@3001/dist/kaplay.mjs";
 import { MainMenu } from "./scenes/mainmenu.js";
 import { Instructions } from "./scenes/instructions.js";
 import { Intro } from "./scenes/intro.js";
 import { Game } from "./scenes/game.js";
 import { GameOver } from "./scenes/gameover.js";
 
-kaboom({
+kaplay({
     width: 800,
     height: 400,
     root: document.getElementById("gameboard"),
