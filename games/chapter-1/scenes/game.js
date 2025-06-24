@@ -265,7 +265,7 @@ export function Game() {
         banana.isStatic = false;
         startAction();
     });  
-
+    setCursor("none");
 
     // handle events
     on("ground", "tofu", (t) => {

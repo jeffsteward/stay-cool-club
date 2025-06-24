@@ -8,7 +8,7 @@ import { GameOver } from "./scenes/gameover.js";
 kaplay({
     width: 800,
     height: 400,
-    root: document.getElementById("gameboard"),
+    canvas: document.getElementById("gameboard"),
     background: [100, 100, 255]
 });
 

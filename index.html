@@ -7,16 +7,16 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-mobile-web-app-title" content="Stay Cool BB">
-        <link rel="apple-touch-icon" href="img/banana.png">
+        <link rel="apple-touch-icon" href="img/banana-run.png">
         <link rel="icon" type="image/png" href="img/clouds.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link href="/styles/main.css" rel="stylesheet">
     </head>
     <body class="container-fluid text-center mt-4 mb-4">
-        <header class="container jumbotron">
-            <div class="display-1">
+        <header class="container jumbotron shadow">
+            <div class="d-flex justify-content-around align-items-center">
                 <img alt="banana" class="m-4" style="width:90px;transform: scaleX(-1);" src="img/banana-jump-v2.png">
-                <span style="text-shadow: 3px 3px #FED300;"> Stay Cool Club</span>
+                <div class="display-1" style="text-shadow: 3px 3px #FED300;"> Stay Cool Club</div>
                 <img class="m-4" style="width:90px;" alt="banana" src="img/banana-jump-v2.png">
             </div>                
         </header>
@@ -26,24 +26,24 @@
             </div>
             <section class="m-4">
                 <div class="display-2 mb-4">The Games</div>
-                <a class="btn p-3 m-2 rounded bg-warning" href="/games/chapter-1/">
+                <a class="btn p-3 m-2 rounded bg-warning shadow" href="/games/chapter-1/">
                     <h3>Stay Cool, Banana Bro</h3>
                     <h3>Chapter 1: Hop To It</h3>
                 </a>
-                <a class="btn p-3 m-2 rounded bg-warning" href="/games/chapter-2/">
+                <a class="btn p-3 m-2 rounded bg-warning shadow" href="/games/chapter-2/">
                     <h3>Stay Cool, Banana Bro</h3>
                     <h3>Chapter 2: Throwin’ Shade</h3>
                 </a>
-                <a class="btn p-3 m-2 rounded bg-secondary" href="/games/chapter-2/">
+                <a class="btn p-3 m-2 rounded bg-secondary shadow" href="/games/chapter-3/">
                     <h3>Stay Cool, Banana Bro</h3>
                     <h3>Chapter 3: TBD, Probably </h3>
                 </a>
             </section>
             <section class="m-4">
                 <div class="display-2 mb-4">The Players</div>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-md-center g-4">
                     <div class="col">
-                        <div class="card character-card text-white text-start m-1 p-2" style="height: 22rem;">
+                        <div class="card character-card shadow text-white text-start m-1 p-2">
                             <div class="row g-0">
                                 <div class="card-body">
                                     <div class="position-absolute bottom-0 end-0 p-2"><img src="/img/banana-run.png" style="width: 100px;"></div>
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card character-card text-white text-start m-1 p-2" style="height: 22rem;">
+                        <div class="card character-card shadow text-white text-start m-1 p-2">
                             <div class="row g-0">
                                 <div class="card-body">
                                     <div class="position-absolute top-0 end-0 p-3"><img src="/img/bowl.png" style="width: 90px;"></div>
@@ -87,7 +87,7 @@
                         </div>    
                     </div>
                     <div class="col">
-                        <div class="card character-card text-white text-start m-1 p-2" style="height: 22rem;">
+                        <div class="card character-card shadow text-white text-start m-1 p-2">
                             <div class="row g-0">
                                 <div class="card-body">
                                     <div class="position-absolute bottom-50 end-0 p-2"><img src="/img/tofu-squat.png" style="width: 150px;"></div>
@@ -108,6 +108,50 @@
                             </div>                      
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="card character-card shadow text-white text-start m-1 p-2">
+                            <div class="row g-0">
+                                <div class="card-body">
+                                    <div class="position-absolute top-0 end-0 p-4"><img src="/img/clouds.png" style="width: 100px;"></div>
+                                    <div class="">                                    
+                                        <h5 class="card-title">Cloud</h5>
+                                        <h6 class="card-subtitle mb-3">Drifter</h6>
+                                        <p class="card-text">
+                                            Loves:<br/>Parade goers, kids at the beach
+                                        </p>
+                                        <p class="card-text">
+                                            Dislikes:<br/>High winds, planes<br/>
+                                        </p>
+                                        <p class="card-text">
+                                            Motto:<br/>“E cumulus unum”
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>                      
+                        </div>
+                    </div>                      
+                    <div class="col">
+                        <div class="card character-card shadow text-white text-start m-1 p-2">
+                            <div class="row g-0">
+                                <div class="card-body">
+                                    <div class="position-absolute top-0 end-0 p-4"><img src="/img/banana-business.png" style="width: 100px;  transform: scaleX(-1);"></div>
+                                    <div class="">                                    
+                                        <h5 class="card-title">Business Banana</h5>
+                                        <h6 class="card-subtitle mb-3">RTO drone</h6>
+                                        <p class="card-text">
+                                            Loves:<br/>Coffee
+                                        </p>
+                                        <p class="card-text">
+                                            Dislikes:<br/>When Jerry makes the coffee
+                                        </p>
+                                        <p class="card-text">
+                                            Motto:<br/>“I am a closer. I am closer. I am a closer.”
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>                      
+                        </div>
+                    </div>  
                 </div>              
             </section>       
             <section class="m-4">
@@ -119,11 +163,11 @@
                 <div>Made by humans</div>
                 <div>Coding and game design by <a href="https://www.cardboardrobotics.com/" target="_blank">Cardboard Robotics</a></div>
                 <div>Characters based on kitchen sticky notes by <a href="https://www.instagram.com/lightningbolt_lightningbolt/" target="_blank">RK49</a></div>
-                <div>Games made with <a href="https://kaboomjs.com/" target="_blank">Kaboom</a></div>
+                <div>Games made with <a href="https://kaplayjs.com/" target="_blank">KAPLAY</a></div>
                 <div>Font is <a href="https://fonts.google.com/specimen/Lilita+One" target="_blank">Lilita One</a></div>
             </section>         
         </main>
-        <footer class="container foototron p-2">
+        <footer class="container foototron shadow p-2">
             Hang tight. Stay loose. &copy;2024 Such and Such and Whatnot
         </footer>
     </body>
