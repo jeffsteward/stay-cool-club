@@ -9,6 +9,11 @@ export const characters = {
         dislikes: 'Ethylene, b@n@n@ bread',
         motto: 'Right on.'
     },
+    drone: {
+        color: [],
+        scale: 0.0,
+        sprite: 'drone'
+    },
     tofu: {
         color: [255,250,223],
         scale: 0.2,

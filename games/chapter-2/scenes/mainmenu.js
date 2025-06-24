@@ -66,7 +66,7 @@ export function MainMenu() {
 
     add([
         sprite("banana", {flipX:  true, anim:"jump"}),
-        scale(0.3),
+        scale(0.5),
         color(characters.banana.color),
         pos(40, center().y - 50),
         anchor("left")
@@ -74,7 +74,7 @@ export function MainMenu() {
 
     add([
         sprite("banana", {flipX:  false, anim:"jump"}),
-        scale(0.3),
+        scale(0.5),
         color(characters.banana.color),
         pos(width() - 40, center().y - 50),
         anchor("right")

@@ -17,11 +17,24 @@ export const messages = {
         "Cheese It!",
         "Every Day I’m Shufflin’"
     ],
-    discouragement: [
-        "That has got to hurt"
-    ],
     droneConvert: [
-        "Welcome to cools-ville!",
+        "Welcome to Cools-ville!",
+        "Join the Party!",
+        "Mellow Out",
+        "It's 5 o'clock somewhere"
+    ],
+    discouragement: [
+        "Did you get \nthe memo?",
+        "Gabba Gabba, \nWe Accept You",
+        "Be one of us",
+        "How's that \nbusiness \ntransaction \ngoing?",
+        "Hey, can I get an \nupdate on that memo?",
+        "Who ate my lunch? \nMy name was on it.",
+        "Performance review time!", 
+        "Another day,\nanother dollar",
+        "Are you the new temp?",
+        "If you want \nsomething done right...",
+        "\"Other duties as required\""
     ],
     gameover: [
         "Game Over",
@@ -29,15 +42,17 @@ export const messages = {
         "What a Bummer",
         "Too Ripe",
         "Sorry, Buddy :(",
-        "Banana Bread R.I.P."
+        "Banana Bread R.I.P.",
+        "Back to the Grind :(",
+        "All Business. No Banana."
     ],
     controls: [
-        '[highlight]▲[/highlight] and [highlight]▼[/highlight] to move',
+        '[highlight]←↑↓→[/highlight] to move',
         '[highlight]Space bar[/highlight] to throw some shade'
     ], 
     instructions: [
-        'Lorem Ipso TKTK.',
-        'Bacon bacon bacon.',
-        'Duck, duck, goose, tktk.'
+        'Toss shades to the drones; help them chillout.',
+        'No touching.',
+        'Don’t sweat it.'
     ]
 };

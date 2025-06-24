@@ -2,6 +2,8 @@ import { messages } from "../content/messages.js";
 import { difficulties } from "../content/difficulties.js";
 
 export function Game() {
+    let discouragementIntervals = [200, 450, 700, 1120];
+    let nextDiscouragement = 300;
     let gameRunning = false;
     let difficulty = difficulties[0];
     let shadesStash = 100;
@@ -21,7 +23,7 @@ export function Game() {
     
     let banana = add([
         sprite("banana", {anim: "jump"}),
-        scale(0.35),
+        scale(0.55),
         color([254, 211, 0]),
         pos(center().x, -200),
         anchor("center"),
@@ -52,22 +54,33 @@ export function Game() {
     }
 
     function spawnTheUncool() {
-        let startX = choose([0,width()]);
-        add([
-            sprite(choose(["bazombie", "bazombie2"]), {anim: "walk", flipX: startX}),
-            scale(rand(0.27,0.32)),
-            color(210,210,210),
-            anchor("center"),
-            area({scale: 0.75, offset: vec2(0,-25)}) ,    
-            body(),
-            z(-100),
-            pos(startX, rand(0,height())),
-            "theuncool",
-            "attacker", 
-            {
-                speed: difficulty.speed
-            }
-        ])
+        if (get("theuncool").length < 35) {
+            let startX = choose([0,width()]);
+            let theUncool = add([
+                    sprite(choose(["bazombie", "bazombie2"]), {anim: "walk", flipX: startX}),
+                    scale(rand(0.27,0.32)),
+                    color(210,210,210),
+                    anchor("center"),
+                    area({scale: 0.75, offset: vec2(0,-25)}) ,    
+                    body(),
+                    z(-100),
+                    pos(startX, rand(0,height())),
+                    "theuncool",
+                    {
+                        speed: difficulty.speed
+                    },
+                ]);
+            
+            theUncool.add([
+                color(220,220,220),
+                text(choose(messages.discouragement), {
+                    font: 'Lilita One',
+                    size: 50
+                }),
+                anchor('bot'),
+                pos(100, -150)
+            ]);
+        }
         wait(difficulty.frequency, spawnTheUncool)
     }
 
@@ -79,7 +92,7 @@ export function Game() {
             pos(p),
             anchor("center"),
             area(),
-            color(0),
+            color(0,0,0),
             move(a,350),
 			offscreen({ destroy: true }),
             "projectile"
@@ -96,21 +109,48 @@ export function Game() {
     }
     
     function endGame() {
+        difficulty = difficulties[9];
+        spawnTheUncool();
         gameRunning = false;
         
-        shake();
-        showBananner(banana.pos, choose(["No touching!", "Not cool!"]), 20, 0.5, 1.0, 100, color(0, 244,234));
+        showBananner(
+            center().add(5,5), 
+            "I regret nothing!",
+            60, 0.5, 3.0, 50, 
+            color(12, 51, 77)
+        );
+        showBananner(
+            center(), 
+            "I regret nothing!",
+            60, 0.5, 3.0, 50, 
+            color(255, 88, 210)
+        );
+        wait(1.2, () => {
+            showBananner(
+                center().add(5,5), 
+                "Stay cooollll...",
+                60, 0.5, 3.0, 50, 
+                color(12, 51, 77)
+            );
+            showBananner(
+                center(), 
+                "Stay cooollll...",
+                60, 0.5, 3.0, 50, 
+                color(255, 88, 210)
+            );
+        })
+            
+        banana.unuse("body");
+        banana.play("defeated");
+        tween(
+            banana.color, 
+            new Color(210, 210, 210),
+            1.0,
+            (val) => banana.color = val, 
+            easings.easeInSine
+        );
 
-        banana.use(rotate());
-        banana.anchor = "center";
-        banana.play("jump");
-
-        banana.scale = 0.75;
-        banana.onUpdate(() => {
-            banana.angle += 500 * dt();
-        });
-        
-        wait(1, () => go("game-over", score));
+        wait(3, () => go("game-over", score));
     }
 
     // START THE GAME
@@ -132,6 +172,7 @@ export function Game() {
         banana.play("idle");
         startAction();
     });
+    setCursor("none");
 
     onUpdate(() => {
         if (gameRunning) {
@@ -147,11 +188,9 @@ export function Game() {
     });
 
     onUpdate("theuncool", (t) => {
-        if (!t.isCool) {
-            const dir = banana.pos.sub(t.pos).unit();
-            t.flipX = (dir.x < 0);
-            t.move(dir.scale(t.speed));
-        }
+        const dir = banana.pos.sub(t.pos).unit();
+        t.flipX = (dir.x < 0);
+        t.move(dir.scale(t.speed));  
     })
  
     onUpdate("thecool", (t) => {
@@ -160,22 +199,21 @@ export function Game() {
         t.move(x,y);
     })
 
-    banana.onCollide("thecool", () => {
-        showBananner(banana.pos, choose(["Stay cool, yo!", "Safety in numbers, amirite!"]), 20, 0.5, 1.0, 100, color(240, 44,234));
+    banana.onCollide("theuncool", () => {
+        if (gameRunning) {
+            shake();
+            endGame();
+        }
     });
 
-    banana.onCollide("attacker", endGame);
-
-    onCollide("attacker", "projectile", (t, p) => {
-        score.cooled +=1;
-        showBananner(t.pos, choose(messages.droneConvert), 20, 0.5, 1.0, 100, color(100, 244,134));
-        destroy(p);   
-
-        t.unuse("attacker");
-        t.unuse("theuncool");
-        
+    onCollide("theuncool", "projectile", (t, p) => {
+        t.untag("theuncool");
         t.isStatic = true;
 
+        score.cooled +=1;
+        showBananner(banana.pos, choose(messages.droneConvert), 20, 0.5, 1.0, 100, color(100, 244,134));
+        destroy(p);   
+        
         t.play("idle");
         tween(
             t.color, 
@@ -197,7 +235,7 @@ export function Game() {
             ]);
             theCoolness.add([
                 sprite("banana", {anim: "zen", flipX: t.pos.x < center().x}),
-                scale(1.5),
+                scale(2.35),
                 anchor("center"),
                 pos(-20,-200),
                 color([254, 211, 0]),
@@ -209,8 +247,10 @@ export function Game() {
     // game controls
     ["up", "down", "left", "right"].forEach((key) => {
         onKeyRelease(key, () => {
-            if (!isKeyDown("space")) {
-                banana.play("idle");
+            if (gameRunning) {
+                if (!isKeyDown("space")) {
+                    banana.play("idle");
+                }
             }
         });
     });
@@ -221,43 +261,55 @@ export function Game() {
         }
     })
     onKeyDown("up", () => {
-        if (!isKeyDown("space")) {
-            if (banana.pos.y - ((banana.height*banana.scale.y/2)) > 0) {
-                if (banana.curAnim() !== "run") {
-                    banana.play("run");
-                }
-                banana.move(UP.scale(300));
-            }   
+        if (gameRunning) {
+            if (!isKeyDown("space")) {
+                if (banana.pos.y - ((banana.height*banana.scale.y/2)) > 0) {
+                    if (banana.curAnim() !== "run") {
+                        banana.play("run");
+                    }
+                    banana.move(UP.scale(300));
+                }   
+            }
         }
     });
     onKeyDown("down", () => {
-        if (!isKeyDown("space")) {
-            if (banana.pos.y + ((banana.height*banana.scale.y/2)) < height()) {
-                if (banana.curAnim() !== "run") {
-                    banana.play("run");
+        if (gameRunning) {
+            if (!isKeyDown("space")) {
+                if (banana.pos.y + ((banana.height*banana.scale.y/2)) < height()) {
+                    if (banana.curAnim() !== "run") {
+                        banana.play("run");
+                    }
+                    banana.move(DOWN.scale(300));
                 }
-                banana.move(DOWN.scale(300));
             }
         }
     });
     onKeyDown("right", () => {
-        if (!isKeyDown("space")) {
-            if (banana.curAnim() !== "run") {
-                banana.play("run");
-            }            
-            banana.dir = LEFT;
-            banana.flipX = true; 
-            banana.move(RIGHT.scale(300));
+        if (gameRunning) {
+            if (!isKeyDown("space")) {
+                if (banana.pos.x < width()) {
+                    if (banana.curAnim() !== "run") {
+                        banana.play("run");
+                    }            
+                    banana.dir = LEFT;
+                    banana.flipX = true; 
+                    banana.move(RIGHT.scale(300));
+                }
+            }
         }
     });
     onKeyDown("left", () => {
-        if (!isKeyDown("space")) {
-            if (banana.curAnim() !== "run") {
-                banana.play("run");
-            }        
-            banana.dir = RIGHT;
-            banana.flipX = false;
-            banana.move(LEFT.scale(300));
+        if (gameRunning) {
+            if (!isKeyDown("space")) {
+                if (banana.pos.x > 0) {
+                    if (banana.curAnim() !== "run") {
+                        banana.play("run");
+                    }        
+                    banana.dir = RIGHT;
+                    banana.flipX = false;
+                    banana.move(LEFT.scale(300));
+                }
+            }
         }
     });
     onKeyPress("space", () => {   
