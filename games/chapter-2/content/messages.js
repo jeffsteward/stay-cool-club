@@ -34,7 +34,8 @@ export const messages = {
         "Another day,\nanother dollar",
         "Are you the new temp?",
         "If you want \nsomething done right...",
-        "\"Other duties as required\""
+        "\"Other duties as required\"",
+        "Gotta earn the bread"
     ],
     gameover: [
         "Game Over",
@@ -51,7 +52,7 @@ export const messages = {
         '[highlight]Space bar[/highlight] to throw some shade'
     ], 
     instructions: [
-        'Toss shades to the drones; help them chillout.',
+        'Toss shades to the drones; help them chill out.',
         'No touching.',
         'Don’t sweat it.'
     ]
