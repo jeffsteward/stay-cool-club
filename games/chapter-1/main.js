@@ -54,3 +54,24 @@ scene("game", Game);
 scene("game-over", GameOver);
 
 go("main-menu");
+
+// try to figure out if the user has a keyboard which is required to play the game
+let mobileDetected = false;
+let keyboardDetected = false;
+
+function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+}
+function detectKeyboardOnce(e) {
+    keyboardDetected = true;
+    //hide the warning, play the game
+    window.removeEventListener('keydown', detectKeyboardOnce);
+}
+window.addEventListener('keydown', detectKeyboardOnce);
+
+mobileDetected = isMobile();
+if (mobileDetected) {
+    //show the warning
+    document.getElementById("keyboard-warning").classList.remove("d-none");
+    document.getElementById("gameboard").classList.add("d-none");
+}
