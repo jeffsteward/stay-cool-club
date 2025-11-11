@@ -14,7 +14,7 @@ kaplay({
 
 loadFont("Lilita One", "/fonts/LilitaOne-Regular.ttf")
 loadSprite("cloud", "/img/clouds.png");
-loadSprite("banana", "/img/banana-v4-sprites.png", {
+loadSprite("banana", "/img/banana-2-0-sprites.png", {
     sliceX: 10,
     sliceY: 1,
     anims: {
